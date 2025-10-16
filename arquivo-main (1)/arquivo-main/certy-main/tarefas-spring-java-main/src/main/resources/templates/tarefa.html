@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar nova tarefa</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+    <h1>Nova tarefa</h1>
+    <!-- form para salvar, ação oq ele vai chamar, object com quem ele vai trabalhar, metodo que vai chamar-->
+    <form th:action="@{/templates/salvar}"  method="post"  th:object="${tarefa}" >
+
+        <div th:if="${erros != null}" class="alert alert-danger" >
+            <p th:text="${erros}"></p>
+        </div>
+
+        <div>
+            <label> Título </label>
+            <!-- field = atributo dentro do objeto, nesse caso, tarefa-->
+            <input th:field="*{titulo}"    type="text">
+        </div>
+
+        <div>
+            <label>Descrição </label>
+            <textarea th:field="*{descricao}"  rows="3"></textarea>
+        </div>  
+
+        <div>
+            <label>Responsável </label>
+            <input th:field="*{responsavel}" type="text">
+        </div>
+
+        <div>
+            <label> Prioridade</label>
+            <select  th:field="*{prioridade}">
+                <option th:each="p : ${prioridades}" th:value="${p}" th:text="${p}"></option>
+            </select>
+        </div>
+
+        <div>
+            <label> Status</label>
+            <select  th:field="*{status}">
+                <option th:each="s : ${listaStatus}" th:value="${s}" th:text="${s}"></option>
+            </select>
+        </div>
+
+        <div>
+            <label> Data limite</label>
+            <input type="date" th:field="*{dataLimite}">
+        </div>
+
+        <br>
+        <button type="submit">Salvar</button>
+        <!-- me enviar de volta pra lista-->
+        <button > <a href="/templates/listar">Cancelar </a>  </button>
+    </form>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
